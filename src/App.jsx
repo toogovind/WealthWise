@@ -65,8 +65,16 @@ function LoginScreen(){
   const [error,setError]=useState("");
   const signIn=async()=>{
     setLoading(true);setError("");
-    const {error}=await supabase.auth.signInWithOAuth({provider:"google",options:{redirectTo:window.location.origin}});
-    if(error){setError(error.message);setLoading(false);}
+    const {error} = await supabase.auth.signInWithOAuth({
+  provider: "google",
+  options: {
+    redirectTo: window.location.origin,
+    queryParams: {
+      prompt: "select_account"
+    }
+  }
+});
+if(error){setError(error.message);setLoading(false);}
   };
   return(
     <div style={{minHeight:"100vh",background:"#0f0f13",display:"flex",alignItems:"center",justifyContent:"center",padding:24,fontFamily:"'DM Sans',sans-serif"}}>
